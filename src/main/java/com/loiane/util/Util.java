@@ -68,7 +68,6 @@ public class Util {
 	 * @param data - json data from request
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public List<Contact> getListContactsFromJSON(Object data){
 		Type collectionType = new TypeToken<List<Contact>>(){}.getType();
 		List<Contact> newContacts = GSON.fromJson(data.toString(), collectionType);
@@ -81,7 +80,6 @@ public class Util {
 	 * @param data - json data from request
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public List<Integer> getListIdFromJSON(Object data){
 		Type collectionType = new TypeToken<List<Integer>>(){}.getType();
 		List<Integer> idContacts = GSON.fromJson(data.toString(), collectionType);
