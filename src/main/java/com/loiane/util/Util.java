@@ -1,5 +1,6 @@
 package com.loiane.util;
 
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,9 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.loiane.model.Contact;
 
 /**
@@ -25,6 +25,8 @@ public class Util {
 	private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	
 	private static DateFormat dfString = new SimpleDateFormat("MM/dd/yyyy");
+	
+	private static final Gson GSON = new Gson();
 
 	/**
 	 * Get list of Contacts from request.
@@ -57,8 +59,7 @@ public class Util {
 	 * @return 
 	 */
 	public Contact getContactFromJSON(Object data){
-		JSONObject jsonObject = JSONObject.fromObject(data);
-		Contact newContact = (Contact) JSONObject.toBean(jsonObject, Contact.class);
+		Contact newContact = GSON.fromJson(data.toString(), Contact.class);
 		return newContact;
 	}
 
@@ -69,8 +70,8 @@ public class Util {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Contact> getListContactsFromJSON(Object data){
-		JSONArray jsonArray = JSONArray.fromObject(data);
-		List<Contact> newContacts = (List<Contact>) JSONArray.toCollection(jsonArray,Contact.class);
+		Type collectionType = new TypeToken<List<Contact>>(){}.getType();
+		List<Contact> newContacts = GSON.fromJson(data.toString(), collectionType);
 		return newContacts;
 	}
 
@@ -82,8 +83,8 @@ public class Util {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Integer> getListIdFromJSON(Object data){
-		JSONArray jsonArray = JSONArray.fromObject(data);
-		List<Integer> idContacts = (List<Integer>) JSONArray.toCollection(jsonArray,Integer.class);
+		Type collectionType = new TypeToken<List<Integer>>(){}.getType();
+		List<Integer> idContacts = GSON.fromJson(data.toString(), collectionType);
 		return idContacts;
 	}
 	
