@@ -7,3 +7,7 @@ Maven magic by ~dcheney
 
 Usage:
     mvn jetty:run
+
+Then navigate to 
+
+[http://localhost:8080/extjs-crud-grid/]
